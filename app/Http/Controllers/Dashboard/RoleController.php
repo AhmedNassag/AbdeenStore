@@ -29,7 +29,7 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         try {
-            $roles = Role::orderBy('id','DESC')->paginate(5);
+            $roles = Role::paginate(5);
             return view('dashboard.roles.index',compact('roles'))->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
