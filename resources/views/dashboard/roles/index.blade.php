@@ -104,13 +104,14 @@
                                                                     <i class="text-success fas fa-eye"></i>&nbsp;&nbsp;{{ trans('main.Show') }}
                                                                 </a>
                                                             @endcan
-
-                                                            @if ($role->name !== 'Admin')
+                                                    
+                                                            @if($key != 0)
                                                                 @can('تعديل الصلاحيات')
                                                                     <a class="dropdown-item" href="{{ route('roles.edit', $role->id) }}" title="{{ trans('main.Edit') }}">
                                                                         <i class="text-info fas fa-pencil-alt"></i>&nbsp;&nbsp;{{ trans('main.Edit') }}
                                                                     </a>
                                                                 @endcan
+
                                                                 @can('حذف الصلاحيات')
                                                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete{{ $role->id }}" title="{{ trans('main.Delete') }}">
                                                                         <i class="text-danger fas fa-trash-alt"></i>&nbsp;&nbsp;{{ trans('main.Delete') }}
