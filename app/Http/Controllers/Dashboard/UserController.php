@@ -31,7 +31,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         try {
-            $data = User::orderBy('id','DESC')->paginate(5);
+            $data = User::paginate(5);
             return view('dashboard.users.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 5);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
