@@ -130,11 +130,11 @@
                                                     @endif
                                                 </td>
                                                 <td class="text-center">
-                                                    @if($user->id != 1)
+                                                    @if($key != 0)
                                                         @can('تعديل المستخدمين')
                                                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info" title="{{ trans('main.Edit') }}"><i class="las la-pen"></i></a>
                                                         @endcan
-
+    
                                                         @can('حذف المستخدمين')
                                                             <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale" data-user_id="{{ $user->id }}" data-username="{{ $user->name }}" data-toggle="modal" href="#modaldemo8" title="{{ trans('main.Delete') }}"><i class="las la-trash"></i></a>
                                                         @endcan
