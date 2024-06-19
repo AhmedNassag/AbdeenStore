@@ -91,7 +91,7 @@
                             <div class="row row-xs">
                                 <div class="col-sm-6 col-md-12 notPrint">
                                     @if($trashed == false)
-                                        @if($currencies->count() < 1)
+                                        @if($currencies->count() != 1)
                                             @can('إضافة العملات')
                                                 <a class="modal-effect btn btn-primary ripple" data-effect="effect-newspaper" data-toggle="modal" href="#modaldemo8">
                                                     <i class="mdi mdi-plus"></i>&nbsp;{{ trans('main.Add') }}
@@ -130,7 +130,7 @@
                                         <tr>
                                             @if($trashed == false)
                                                 <th class="text-center border-bottom-0 notPrint">
-                                                    <input name="select_all" id="example-select-all" type="checkbox" onclick="CheckAll('box1', this)"  oninput="showBtnDeleteSelected()">
+                                                    <!--<input name="select_all" id="example-select-all" type="checkbox" onclick="CheckAll('box1', this)"  oninput="showBtnDeleteSelected()">-->
                                                 </th>
                                             @endif
                                             <th class="text-center border-bottom-0">#</th>
@@ -162,20 +162,25 @@
                                         @endif
                                         <!-- end serch -->
                                         <?php $i = 0; ?>
-                                        @foreach ($currencies as $item)
+                                        @foreach ($currencies as $key => $item)
                                             <?php $i++; ?>
                                             <tr>
                                                 @if($trashed == false)
-                                                    <td class="text-center notPrint">
-                                                        <input id="delete_selected_input" type="checkbox" value="{{ $item->id }}" class="box1 mr-3" oninput="showBtnDeleteSelected()">
-                                                    </td>
+                                                    @if($key != 0)
+                                                        <td class="text-center notPrint">
+                                                            <input id="delete_selected_input" type="checkbox" value="{{ $item->id }}" class="box1 mr-3" oninput="showBtnDeleteSelected()">
+                                                        </td>
+                                                    @else
+                                                        <td class="text-center notPrint"></td>
+                                                    @endif
                                                 @endif
                                                 <td class="text-center">{{ $i }}</td>
                                                 <td class="text-center">{{ $item->name }}</td>
                                                 <td class="text-center">{{ $item->symbol }}</td>
                                                 <td class="text-center notPrint">
                                                     <div class="dropdown">
-                                                        <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-primary btn-sm" data-toggle="dropdown" type="button"><i class="fas fa-caret-down ml-1"></i>{{ trans('main.Actions') }}</button>
+                                                        <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-primary btn-sm" data-toggle="dropdown" type="button">
+                                                            <i class="fas fa-caret-down ml-1"></i>{{ trans('main.Actions') }}</button>
                                                         <div class="dropdown-menu tx-13 bd-primary rounded-5">
                                                             @if($trashed == false)
                                                                 @can('عرض العملات')
@@ -189,9 +194,11 @@
                                                                     </a>
                                                                 @endcan
                                                                 @can('حذف العملات')
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete{{ $item->id }}" title="{{ trans('main.Delete') }}">
-                                                                        <i class="text-danger icon ion-md-paper-plane"></i>&nbsp;&nbsp;{{ trans('main.Archive') }}
-                                                                    </a>
+                                                                    @if($key != 0)
+                                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete{{ $item->id }}" title="{{ trans('main.Delete') }}">
+                                                                            <i class="text-danger icon ion-md-paper-plane"></i>&nbsp;&nbsp;{{ trans('main.Archive') }}
+                                                                        </a>
+                                                                    @endif
                                                                 @endcan
                                                             @else
                                                                 @can('إستعادة العملات')
